@@ -12,6 +12,11 @@ understanding of using F# and Visual Studio. At least go through
 Microsoft tutorial for F# 
 [tutorial](https://learn.microsoft.com/en-us/dotnet/fsharp/what-is-fsharp)
 
+## Information
+
+Here is a list of tech indicators [link](https://www.investopedia.com/terms/t/technicalindicator.asp).
+This is a fundamental documentation that I'm using to implement functions
+
 ## Functionalities
 
 I've created a little library which can calculate:
@@ -36,10 +41,15 @@ functionalities, AI with SciSharp, pack indicators and formulas to a
 package which depends on how many people will interest in this project
 
 - [ ] Guide
-- [ ] Strategies class
-- [ ] More calulation formulas
-- [ ] All available indicators
-
-## Contribution
-
-[In progress]
+- [ ] Standalone package
+	- [ ] Implement functions independent from other FSharp.Stats package
+- [ ] Strategy class
+- [ ] Well known indicators
+	- [X] SMA
+	- [X] BBands
+	- [X] Intersections (Gloden and Death cross)
+	- [X] RSI
+	- [ ] EMA
+	- [ ] Stochastic Oscillator
+	- [ ] Price Rate of Change - ROC
+	- [ ] Money Flow Index - MFI

@@ -4,12 +4,14 @@ open System.Runtime.CompilerServices
 open FSharp.Stats
 open System
 
+type PriceMove = 
+    | Bearish
+    | Bullish
+
 [<Extension>]
 type Seq() =
+    // Simple Moving Avarage
     [<Extension>]
-    ///<summery>
-    /// s;lfdgihlskdjhfsglksjdhf
-    ///</summery>
     static member sma (length: int) (source: float seq) =
         let result = 
             source 
@@ -18,6 +20,7 @@ type Seq() =
         let emptyArr = Seq.init (length - 1) (fun _ -> Unchecked.defaultof<float>)
         result |> Seq.append emptyArr
 
+    // Bollinger bands
     [<Extension>]
     static member bbands (data: float seq) (length: int) (std: float) =
         let sma =  data |> Seq.sma length
@@ -40,9 +43,6 @@ type Seq() =
         // Calculate the average gain and loss over the first `length` periods
         let avgGain = gains |> Seq.take length |> Seq.average
         let avgLoss = losses |> Seq.take length |> Seq.average
-
-        // Calculate the Relative Strength (RS)
-        let rs = if avgLoss = 0.0 then Double.MaxValue else avgGain / avgLoss
 
         // Calculate the RSI for each period and store it in a Seq
         let rsiSeq =
@@ -71,8 +71,9 @@ type Seq() =
         let (_,_,rsi) = rsiSeq
         rsi
 
+    // Finding intersections in windowed points between float X's and float Y's
     [<Extension>]
-    static member findIntersection smaPairs =
+    static member findIntersection (smaPairs: (((float * float) * (float * float)) * ((float * float) * (float * float))) seq) =
         smaPairs |> Seq.choose (fun (((x1, y1), (x3, y3)), ((x2, y2), (x4, y4))) -> 
             let denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
             if denominator = 0.0 then
@@ -84,6 +85,28 @@ type Seq() =
                     Some (px, py)
                 elif x1 = x3 && x2 = x4 && y1 = y3 && y2 = y4 then
                     Some(x1, y1)
+                else
+                    None // Intersection not within segment bounds
+            )
+    
+    // Finding intersections in windowed points between datetime X's and float Y's
+    [<Extension>]
+    static member findIntersectionDates (smaPairs: (((DateTime * float) * (DateTime * float)) * ((DateTime * float) * (DateTime * float))) seq)=
+        smaPairs |> Seq.choose (fun (((x1, y1), (x3, y3)), ((x2, y2), (x4, y4))) ->
+            let x1d = float x1.Ticks
+            let x2d = float x2.Ticks
+            let x3d = float x3.Ticks
+            let x4d = float x4.Ticks
+            let denominator = (x1d - x2d) * (y3 - y4) - (y1 - y2) * (x3d - x4d)
+            if denominator = 0.0 then
+                None // Lines are parallel
+            else
+                let px = ((x1d * y2 - y1 * x2d) * (x3d - x4d) - (x1d - x2d) * (x3d * y4 - y3 * x4d)) / denominator
+                let py = ((x1d * y2 - y1 * x2d) * (y3 - y4) - (y1 - y2) * (x3d * y4 - y3 * x4d)) / denominator
+                if px >= min x1d x2d && px <= max x1d x2d && px >= min x3d x4d && px <= max x3d x4d then
+                    Some (DateTime (int64 px), py, match y2 < y4 with | true -> PriceMove.Bullish | false -> PriceMove.Bearish)
+                elif x1d = x3d && x2 = x4 && y1 = y3 && y2 = y4 then
+                    Some(DateTime (int64 x1d), y1, match y2 > y4 with | true -> PriceMove.Bullish | false -> PriceMove.Bearish)
                 else
                     None // Intersection not within segment bounds
             )
