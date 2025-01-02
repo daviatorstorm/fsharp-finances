@@ -1,7 +1,6 @@
 ﻿module FSharp.Stats.Finance
 
 open System.Runtime.CompilerServices
-open FSharp.Stats
 open System
 
 type PriceMove = 
@@ -10,26 +9,6 @@ type PriceMove =
 
 [<Extension>]
 type Seq() =
-    // Simple Moving Avarage
-    [<Extension>]
-    static member sma (length: int) (source: float seq) =
-        let result = 
-            source 
-            |> Seq.windowed length
-            |> Seq.map Seq.average
-        let emptyArr = Seq.init (length - 1) (fun _ -> Unchecked.defaultof<float>)
-        result |> Seq.append emptyArr
-
-    // Bollinger bands
-    [<Extension>]
-    static member bbands (data: float seq) (length: int) (std: float) =
-        let sma =  data |> Seq.sma length
-        let stdDev = data |> Seq.windowed length |> Seq.map (fun window -> window |> Seq.stDev)
-        let upper = Seq.zip sma stdDev |> Seq.map (fun (sma, sd) -> sma + std * sd)
-        let lower = Seq.zip sma stdDev |> Seq.map (fun (sma, sd) -> sma - std * sd)
-
-        (upper, lower)
-
     // RSI (Relative Strength Index) function
     [<Extension>]
     static member rsi (data: float seq) (length: int) : float seq  =
@@ -71,7 +50,6 @@ type Seq() =
         let (_,_,rsi) = rsiSeq
         rsi
 
-    // Finding intersections in windowed points between float X's and float Y's
     [<Extension>]
     static member findIntersection (smaPairs: (((float * float) * (float * float)) * ((float * float) * (float * float))) seq) =
         smaPairs |> Seq.choose (fun (((x1, y1), (x3, y3)), ((x2, y2), (x4, y4))) -> 
@@ -88,8 +66,7 @@ type Seq() =
                 else
                     None // Intersection not within segment bounds
             )
-    
-    // Finding intersections in windowed points between datetime X's and float Y's
+
     [<Extension>]
     static member findIntersectionDates (smaPairs: (((DateTime * float) * (DateTime * float)) * ((DateTime * float) * (DateTime * float))) seq)=
         smaPairs |> Seq.choose (fun (((x1, y1), (x3, y3)), ((x2, y2), (x4, y4))) ->

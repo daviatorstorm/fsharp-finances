@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <PackageReference Include="FSharp.Data" Version="6.4.0" />
-    <PackageReference Include="FSharp.Stats" Version="0.5.0" />
     <PackageReference Include="Plotly.NET" Version="5.1.0" />
   </ItemGroup>
 

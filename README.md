@@ -1,5 +1,11 @@
 # F# Finance guide
 
+![candlesticks](./resources/candlesticks-overview.png)
+Candle sticks
+
+![candlesticks](./resources/candlesticks.jpg)
+Candle explanation
+
 > This walktrough created for people who interesting to use F#
 for finances analyze
 
@@ -14,14 +20,18 @@ Microsoft tutorial for F#
 
 ## Information
 
-Here is a list of tech indicators [link](https://www.investopedia.com/terms/t/technicalindicator.asp).
-This is a fundamental documentation that I'm using to implement functions
+Here is a list of tech indicators 
+[link](https://www.investopedia.com/terms/t/technicalindicator.asp)
+used for tech analyze and creating signals.
 
 ## Functionalities
 
-I've created a little library which can calculate:
+These indicators are calculated in this guide:
 - [RSI](https://www.investopedia.com/terms/r/rsi.asp) (Reletive Strength Index)
-- [SMA](https://www.investopedia.com/articles/mutualfund/08/managed-separate-account.asp) (Simple Moving Avarage)
+- [SMA](https://www.investopedia.com/terms/e/ema.asp) 
+(Simple Moving Avarage)
+- [EMA](https://www.investopedia.com/articles/mutualfund/08/managed-separate-account.asp) 
+(Simple Moving Avarage)
 - [BBands](https://www.investopedia.com/terms/b/bollingerbands.asp) (Bollinger Bands)
 - Searching intersection
 
@@ -41,15 +51,25 @@ functionalities, AI with SciSharp, pack indicators and formulas to a
 package which depends on how many people will interest in this project
 
 - [ ] Guide
-- [ ] Standalone package
-	- [ ] Implement functions independent from other FSharp.Stats package
+- [ ] Do separate example with Deedle
+- [ ] ~~Standalone package~~ (This cannot be accomplished as long as lots of 
+calcualtions needs to be written and tested bedofe using. This maybe implemented
+not in close future)
+	- [ ] ~~Implement functions independent from other FSharp.Stats package~~
 - [ ] Strategy class
-- [ ] Well known indicators
-	- [X] SMA
-	- [X] BBands
+- [ ] ~~Well known indicators~~ (These functionalities are already implemented
+in this [package](https://github.com/DaveSkender/Stock.Indicators))
+	- [X] ~~SMA~~
+	- [X] ~~BBands~~
 	- [X] Intersections (Gloden and Death cross)
-	- [X] RSI
-	- [ ] EMA
-	- [ ] Stochastic Oscillator
-	- [ ] Price Rate of Change - ROC
-	- [ ] Money Flow Index - MFI
+	- [X] ~~RSI~~
+	- [ ] ~~EMA~~
+	- [ ] ~~Stochastic Oscillator~~
+	- [ ] ~~Price Rate of Change - ROC~~
+	- [ ] ~~Money Flow Index - MFI~~
+
+## Thanks
+
+[@DaveSkender](https://github.com/DaveSkender/) - whos
+[package](https://github.com/DaveSkender/Stock.Indicators) we are using to
+calculate indicator
