@@ -28,10 +28,12 @@ let dateTimes = data |> Seq.map (fun (d, o, h, l, c) -> d)
 let length = 7;
 let std = 2.0
 
+// Preparing data for analyzing
 let preData = 
     data 
     |> Seq.map (fun (d, o, h, l, c) -> struct (d, c))
 
+// Getting Bollinger Bands
 let bbands = Indicator.GetBollingerBands(preData, length, std) |> Seq.where (fun x-> x.UpperBand.HasValue && x.UpperBand.Value > 0.0)
 
 // Combining stock prices with sma lines and plotting
