@@ -28,6 +28,9 @@ used for tech analyze and creating signals.
 
 These indicators are calculated in this guide:
 - [RSI](https://www.investopedia.com/terms/r/rsi.asp) (Reletive Strength Index)
+- [MFI]() (https://www.investopedia.com/terms/m/mfi.asp) (Money Flow)
+- [Stochastic Oscillator](https://www.investopedia.com/terms/s/stochasticoscillator.asp)
+- [ROC](https://www.investopedia.com/terms/p/pricerateofchange.asp) (Price Rate of Change)
 - [SMA](https://www.investopedia.com/terms/e/ema.asp) 
 (Simple Moving Avarage)
 - [EMA](https://www.investopedia.com/articles/mutualfund/08/managed-separate-account.asp) 
@@ -52,24 +55,13 @@ package which depends on how many people will interest in this project
 
 - [ ] Guide
 - [ ] Do separate example with Deedle
-- [ ] ~~Standalone package~~ (This cannot be accomplished as long as lots of 
-calcualtions needs to be written and tested bedofe using. This maybe implemented
-not in close future)
-	- [ ] ~~Implement functions independent from other FSharp.Stats package~~
 - [ ] Strategy class
-- [ ] ~~Well known indicators~~ (These functionalities are already implemented
-in this [package](https://github.com/DaveSkender/Stock.Indicators))
-	- [X] ~~SMA~~
-	- [X] ~~BBands~~
-	- [X] Intersections (Gloden and Death cross)
-	- [X] ~~RSI~~
-	- [ ] ~~EMA~~
-	- [ ] ~~Stochastic Oscillator~~
-	- [ ] ~~Price Rate of Change - ROC~~
-	- [ ] ~~Money Flow Index - MFI~~
 
 ## Thanks
 
 [@DaveSkender](https://github.com/DaveSkender/) - whos
 [package](https://github.com/DaveSkender/Stock.Indicators) we are using to
 calculate indicator
+
+[Plotly](https://github.com/plotly/Plotly.NET) as we
+using this package to plot indicators
